@@ -4,6 +4,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/DataGenerator/pom.xml" />
+        <option value="$PROJECT_DIR$/PostgresFTS/pom.xml" />
       </list>
     </option>
   </component>
