@@ -11,26 +11,28 @@ public class PopulateDatabase {
 
         String url = "jdbc:postgresql://localhost:5432/fakedb";
         String user = "usershay";
-        String password = "shaygah14";
+        String password = "shaygah";
 
         try {
             Connection connection = DriverManager.getConnection(url, user, password);
             Statement st = connection.createStatement();
-            String sql = "CREATE TABLE fakerTB " +
-                    "(id VARCHAR(255) NOT NULL, " +
-                    "firstname VARCHAR(255) NOT NULL, " +
-                    "surname VARCHAR(255) NOT NULL, " +
-                    "email VARCHAR(255) NOT NULL, " +
-                    "locale TEXT NOT NULL, " +
-                    "address TEXT NOT NULL, " +
-                    "university TEXT NOT NULL, " +
-                    "genre TEXT NOT NULL, " +
-                    "author TEXT NOT NULL, " +
-                    "PRIMARY KEY ( id ))";
+//            //String sql = "CREATE TABLE fakerTB " +
+//                    "(id VARCHAR(255) NOT NULL, " +
+//                    "firstname VARCHAR(255) NOT NULL, " +
+//                    "surname VARCHAR(255) NOT NULL, " +
+//                    "email VARCHAR(255) NOT NULL, " +
+//                    "locale TEXT NOT NULL, " +
+//                    "address TEXT NOT NULL, " +
+//                    "university TEXT NOT NULL, " +
+//                    "genre TEXT NOT NULL, " +
+//                    "author TEXT NOT NULL, " +
+//                    "PRIMARY KEY ( id ))";
 
             //     String sql = "DROP TABLE fakerTB ";
-            //     String sql =//"ALTER TABLE fakertb ADD document tsvector" ;
-            // "CREATE INDEX tsv_idx ON fakertb USING gin(document);";
+                 String sql =//"ALTER TABLE fakertb ADD document tsvector" ;
+                         //"CREATE EXTENSION zombodb; " ;
+                         "CREATE INDEX zombo_idx ON fakertb USING zombodb ((fakertb.*))" +
+                                 " WITH (url='http://localhost:9200/');";
 //                      "UPDATE fakertb SET document = to_tsvector('english', coalesce(address,'') || ' ' || coalesce(genre,''))";
             // "CREATE INDEX textsearch_idx ON fakertb USING gin(document)";
             st.executeUpdate(sql);

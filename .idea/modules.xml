@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FRISK.iml" filepath="$PROJECT_DIR$/FRISK.iml" />
-      <module fileurl="file://$PROJECT_DIR$/DataGenerator/PopulateDatabase.iml" filepath="$PROJECT_DIR$/DataGenerator/PopulateDatabase.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PostgresFTS/PostgresFTS.iml" filepath="$PROJECT_DIR$/PostgresFTS/PostgresFTS.iml" />
     </modules>
   </component>
 </project>

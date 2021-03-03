@@ -77,7 +77,7 @@ public class FTS {
         rankOne = ((System.nanoTime() - start) / 1_000_000_000) / 60;
 
         //print results
-        System.out.println("1 MILLION DATASET");
+        System.out.println("1 MILLION DATASET - POSTGRESQL FTS");
         System.out.println("---------------------------------------");
         System.out.println("Time taken for normal query: " + normOne + " minute(s).");
         System.out.println("Time taken for AND query: " + ANDOne + " minute(s).");

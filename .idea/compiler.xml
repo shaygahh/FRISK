@@ -6,14 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="ElasticSearchFTS" />
         <module name="PostgresFTS" />
         <module name="PopulateDatabase" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="DataGenerator" target="15" />
-      <module name="PopulateDatabase" target="15" />
-      <module name="PostgresFTS" target="15" />
+      <module name="ElasticSearch" target="15" />
     </bytecodeTargetLevel>
   </component>
 </project>
