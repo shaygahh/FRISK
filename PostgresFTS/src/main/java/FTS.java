@@ -16,11 +16,13 @@ public class FTS {
                 result = result + " " + rs.getString(1);
                 result = result + " " + rs.getString(2);
                 result = result + " " + rs.getString(3);
-//               result = result + rs.getString(6);
-//               result = result + rs.getString(7);
-//               result = result + rs.getString(8);
-//               result = result + rs.getString(9);
-                //result = result + " " + rs.getString(8);
+                result = result + " " + rs.getString(4);
+                result = result + " " + rs.getString(5);
+                result = result + " " + rs.getString(6);
+                result = result + " " + rs.getString(7);
+                result = result + " " + rs.getString(8);
+                result = result + " " + rs.getString(9);
+                result = result + " " + rs.getString(10);
                 result = result + "\n";
             }
             return result;
@@ -35,55 +37,58 @@ public class FTS {
         //start with 1 mil of the data to manipulate
         //time variables
         long start, normOne, ANDOne, OROne, langOne, highOne, rankOne;
-        //String result;
+        String result;
         //normal query
-        start = System.nanoTime();
-        sql = " SELECT * FROM fakertb WHERE document @@ to_tsquery('english', 'Horror');";
-        execute(sql);
-        normOne = ((System.nanoTime() - start) / 1_000_000_000 / 60);
-
-//        //query with AND
-        start = System.nanoTime();
-        sql = " SELECT * FROM fakertb WHERE document @@ to_tsquery('english', 'Horror') AND document @@ to_tsquery('english', 'west');";
-        execute(sql);
-        ANDOne = ((System.nanoTime() - start) / 1_000_000_000 / 60);
-//
-        //query with OR
-        start = System.nanoTime();
-        sql = " SELECT * FROM fakertb WHERE document @@ to_tsquery('english', 'Horror') OR document @@ to_tsquery('english', 'Classic');";
-        execute(sql);
-        OROne = ((System.nanoTime() - start) / 1_000_000_000) / 60;
-//
-        //query with LANG
-        start = System.nanoTime();
-        sql = " SELECT * FROM fakertb WHERE document @@ to_tsquery('russian', 'новгород');";
-        execute(sql);
-        langOne = ((System.nanoTime() - start) / 1_000_000_000) / 60;
-//
-        //query with highlights
 //        start = System.nanoTime();
-//        sql = " SELECT ts_headline(FROM fakertb WHERE to_tsvector(document) @@ to_tsquery('english', 'Steven');";
-//        execute(sql);
-//        highOne = ((System.nanoTime() - start) / 1_000_000_000) / 60;
-//
-        //query with ranks
-        start = System.nanoTime();
-        sql = " SELECT id, firstname, surname, RANK() OVER(PARTITION BY genre ORDER BY id DESC) Rank " +
-                "FROM fakertb " +
-                "WHERE genre = 'Western' OR genre = 'Comic/Graphic Novel'" +
-                "ORDER BY id, Rank;";
+//        sql = " SELECT * FROM fakertb WHERE document @@ to_tsquery('english', 'Horror');";
+//       result = execute(sql);
+//        normOne = ((System.nanoTime() - start) / 1_000_000_000 / 60);
 
-        execute(sql);
-        rankOne = ((System.nanoTime() - start) / 1_000_000_000) / 60;
+////        //query with AND
+//        start = System.nanoTime();
+//        sql = " SELECT * FROM fakertb WHERE document @@ to_tsquery('english', 'Horror') AND document @@ to_tsquery('english', 'west');";
+//        result = execute(sql);
+//        ANDOne = ((System.nanoTime() - start) / 1_000_000_000);
+//
+//        //query with OR
+//        start = System.nanoTime();
+//        sql = " SELECT * FROM fakertb WHERE document @@ to_tsquery('english', 'Horror') OR document @@ to_tsquery('english', 'Classic');";
+//        execute(sql);
+//        OROne = ((System.nanoTime() - start) / 1_000_000_000) / 60;
+////
+//        //query with LANG
+//        start = System.nanoTime();
+//        sql = " SELECT * FROM fakertb WHERE document @@ to_tsquery('russian', 'новгород');";
+//        result = execute(sql);
+//        langOne = ((System.nanoTime() - start) / 1_000_000_000) ;
+////
+//        //query with ranks
+//        start = System.nanoTime();
+//        sql = " SELECT id, firstname, surname, RANK() OVER(PARTITION BY genre ORDER BY id DESC) Rank " +
+//                "FROM fakertb " +
+//                "WHERE genre = 'Western' OR genre = 'Comic/Graphic Novel'" +
+//                "ORDER BY id, Rank;";
+//
+//        execute(sql);
+//        rankOne = ((System.nanoTime() - start) / 1_000_000_000) / 60;
+
+        //query with highlights
+        start = System.nanoTime();
+        sql = " SELECT * FROM fakertb WHERE ts_headline('document', to_tsquery('english', 'Essay'))" ;
+                  //"FROM fakertb" ;
+//                  "WHERE document @@ to_tsquery('english', 'Essay')" +
+//                    "ORDER BY id;";
+        result = execute(sql);
+        highOne = ((System.nanoTime() - start) / 1_000_000_000) / 60;
 
         //print results
         System.out.println("1 MILLION DATASET - POSTGRESQL FTS");
         System.out.println("---------------------------------------");
-        System.out.println("Time taken for normal query: " + normOne + " minute(s).");
-        System.out.println("Time taken for AND query: " + ANDOne + " minute(s).");
-        System.out.println("Time taken for OR query: " + OROne + " minutes().");
-        System.out.println("Time taken for language query: " + langOne + " minutes.");
-        // System.out.println("Time taken for normal query: " + highOne + " minutes." + result);
-        System.out.println("Time taken for ranked normal query: " + rankOne + " minutes.");
+      //  System.out.println("Time taken for normal query: " + normOne + " minute(s).");
+      // System.out.println("Time taken for AND query: " + ANDOne + " second(s).");
+       // System.out.println("Time taken for OR query: " + OROne + " minutes().");
+       //System.out.println( "Time taken for language query: " + langOne + " seconds.");
+         System.out.println(result + "Time taken for highlight query: " + highOne + " minutes." + result);
+//        System.out.println("Time taken for ranked normal query: " + rankOne + " minutes.");
     }
 }
